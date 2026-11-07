@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="codelab.css">
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js"></script>
+<script src="pseudo.js"></script>
+<script src="editor.js"></script>
+<script src="questions.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner">
+  <a class="brand" href="../index.html"><span class="logo">CS</span>9618 Study Hub</a>
+  <nav class="topnav">
+    <a href="../index.html">Home</a>
+    <a href="../topics/pseudocode-python.html">Pseudocode &amp; Python</a>
+    <a href="index.html" class="active">Code Lab</a>
+    <a href="../scores.html">My scores</a>
+    <button data-theme-toggle title="Switch light/dark">◐</button>
+    <label class="student-chip"><span class="hide-sm">Name</span><input class="student-name" type="text" placeholder="Your full name"></label>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <p class="crumbs"><a href="../index.html">Home</a> › Code Lab</p>
+  <h1>Code Lab</h1>
+  <p class="lead">Write and run <b>Cambridge pseudocode</b> and <b>Python</b>, then try the practice programs. Each one is checked automatically, and you can submit your answer to your teacher.</p>
+
+  <nav class="tabs" data-tabs="lab">
+    <button data-tab="practice">🎯 Practice programs</button>
+    <button data-tab="pseudo">🟦 Pseudocode editor</button>
+    <button data-tab="python">🐍 Python editor</button>
+    <button data-tab="help">❓ How it works</button>
+  </nav>
+
+  <!-- PRACTICE -->
+  <section class="panel" data-panel-group="lab" data-panel="practice">
+    <div class="q-layout">
+      <aside class="q-list" id="qlist" aria-label="Practice questions"></aside>
+      <div id="qview"></div>
+    </div>
+  </section>
+
+  <!-- FREE PSEUDOCODE -->
+  <section class="panel" data-panel-group="lab" data-panel="pseudo" hidden>
+    <div class="btn-row"><label>Load an example: <select id="pexamples"><option value="">— choose —</option></select></label>
+      <button class="btn" id="pdownload">⬇ Save as .txt</button><button class="btn" id="pclear">Clear</button></div>
+    <div class="lab-grid">
+      <div><div id="ped"></div>
+        <div class="btn-row"><button class="btn primary" id="prun">▶ Run</button><span class="status" id="pstatus"></span></div></div>
+      <div class="io">
+        <label for="pinput">Input (one value per line, used by INPUT in order)</label><textarea id="pinput"></textarea>
+        <label>Output</label><div class="console2" id="pout"><div class="c-in">Press Run to see the output</div></div>
+        <details class="q" style="margin-top:10px"><summary><span>📁 Files (for OPENFILE / READFILE)</span></summary><div class="body">
+          <label for="pfname">File name</label><input type="text" id="pfname" value="Trees.txt" style="width:100%">
+          <label for="pftext">Contents</label><textarea id="pftext"></textarea></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE PYTHON -->
+  <section class="panel" data-panel-group="lab" data-panel="python" hidden>
+    <div class="btn-row"><label>Load an example: <select id="yexamples"><option value="">— choose —</option></select></label>
+      <button class="btn" id="ydownload">⬇ Save as .py</button><button class="btn" id="yclear">Clear</button></div>
+    <div class="lab-grid">
+      <div><div id="yed"></div>
+        <div class="btn-row"><button class="btn primary" id="yrun">▶ Run</button><button class="btn" id="ystop">■ Stop</button><span class="status" id="ystatus"></span></div></div>
+      <div class="io">
+        <label for="yinput">Input (one value per line, used by input() in order)</label><textarea id="yinput"></textarea>
+        <label>Output</label><div class="console2" id="yout"><div class="c-in">Press Run to see the output. The first run downloads Python (needs internet).</div></div>
+        <details class="q" style="margin-top:10px"><summary><span>📁 Files (for open())</span></summary><div class="body">
+          <label for="yfname">File name</label><input type="text" id="yfname" value="Trees.txt" style="width:100%">
+          <label for="yftext">Contents</label><textarea id="yftext"></textarea></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- HELP -->
+  <section class="panel" data-panel-group="lab" data-panel="help" hidden>
+    <div class="card">
+      <h2 style="margin-top:0">How the Code Lab works</h2>
+      <ul>
+        <li><b>Input box:</b> programs can't pause to ask you questions, so type every value your program will INPUT, one per line, before pressing Run.</li>
+        <li><b>Pseudocode</b> follows the Cambridge 9618 rules: capital keywords, <code>←</code> for assignment, <code>&amp;</code> to join strings, <code>ENDIF</code>, <code>NEXT</code>, <code>ENDWHILE</code>, <code>ENDCASE</code>. If you write Python by mistake, the error message tells you the pseudocode way.</li>
+        <li>It warns you if a variable isn't <b>DECLARE</b>d and stops you if you use a variable before giving it a value, just as an examiner would.</li>
+        <li><b>Python</b> is real Python 3, running in your browser. The first run takes a few seconds to download.</li>
+        <li><b>Practice programs:</b> <i>Run</i> tries your program with the example input. <i>Check with tests</i> runs every test case. <i>Submit to teacher</i> sends your code and test result to your teacher's sheet. Enter your name at the top first.</li>
+        <li>Your code is saved automatically in this browser, separately for each question and each language.</li>
+        <li><b>Shortcuts:</b> Tab indents, Shift+Tab un-indents, Ctrl+Enter runs, and typing <code>&lt;-</code> becomes <code>←</code>.</li>
+      </ul>
+      <h3>Pseudocode features supported</h3>
+      <p class="muted">DECLARE (including ARRAY[1:n] and [1:r, 1:c]), CONSTANT, INPUT, OUTPUT, IF/THEN/ELSE/ENDIF, CASE OF/OTHERWISE/ENDCASE (single values, lists, ranges with TO), FOR/TO/STEP/NEXT, WHILE/DO/ENDWHILE, REPEAT/UNTIL, PROCEDURE/CALL with BYVAL/BYREF, FUNCTION/RETURNS/RETURN, OPENFILE/READFILE/WRITEFILE/CLOSEFILE/EOF, plus LENGTH, LEFT, RIGHT, MID, TO_UPPER, TO_LOWER, NUM_TO_STR, STR_TO_NUM, IS_NUM, ASC, CHR, INT, RAND, ROUND, DIV, MOD.</p>
+    </div>
+  </section>
+</main>
+<footer>Teacher? Model answers and mark points are on the <a href="answers.html">answers page</a>.</footer>
+
+<script>
+(function () {
+  const { createEditor, runPseudo, PyRunner, renderConsole, runTests, renderTests, esc, store } = CodeLab;
+  const D = window.CODELAB, $ = s => document.querySelector(s);
+  const fileObj = (n, t) => n.trim() ? { [n.trim()]: t } : {};
+
+  /* ---------- free pseudocode editor ---------- */
+  let ped;
+  const runP = () => {
+    const r = runPseudo(ped.get(), $("#pinput").value, fileObj($("#pfname").value, $("#pftext").value));
+    renderConsole($("#pout"), r); ped.markError(r.errorLine);
+    $("#pstatus").textContent = r.ok ? `Finished in ${r.ms.toFixed(0)} ms` : "Fix the error shown in red";
+  };
+  ped = createEditor($("#ped"), { lang: "pseudo", storageKey: "codelab:free:pseudo", value: D.examples.pseudo["Hello + input"].code, onRun: runP });
+  $("#pinput").value = store.get("codelab:free:pseudo:in", "Megar");
+  $("#pinput").oninput = () => store.set("codelab:free:pseudo:in", $("#pinput").value);
+  $("#pftext").value = D.defaultFiles["Trees.txt"];
+  Object.keys(D.examples.pseudo).forEach(k => $("#pexamples").insertAdjacentHTML("beforeend", `<option>${esc(k)}</option>`));
+  $("#pexamples").onchange = e => { const ex = D.examples.pseudo[e.target.value]; if (ex) { ped.set(ex.code); $("#pinput").value = ex.input; store.set("codelab:free:pseudo:in", ex.input); runP(); } };
+  $("#prun").onclick = runP;
+  $("#pclear").onclick = () => { if (confirm("Clear the pseudocode editor?")) ped.set(""); };
+  $("#pdownload").onclick = () => download("program-pseudocode.txt", ped.get());
+
+  /* ---------- free python editor ---------- */
+  let yed;
+  const runY = async () => {
+    $("#yrun").disabled = true; $("#yout").innerHTML = '<div class="c-in">Running…</div>';
+    const r = await PyRunner.run(yed.get(), $("#yinput").value, fileObj($("#yfname").value, $("#yftext").value), { onStatus: t => $("#ystatus").textContent = t });
+    renderConsole($("#yout"), r); yed.markError(r.errorLine); $("#yrun").disabled = false;
+    $("#ystatus").textContent = r.ok ? "Finished" : "Fix the error shown in red";
+  };
+  yed = createEditor($("#yed"), { lang: "python", storageKey: "codelab:free:python", value: D.examples.python["Hello + input"].code, onRun: runY });
+  $("#yinput").value = store.get("codelab:free:python:in", "Megar");
+  $("#yinput").oninput = () => store.set("codelab:free:python:in", $("#yinput").value);
+  $("#yftext").value = D.defaultFiles["Trees.txt"];
+  Object.keys(D.examples.python).forEach(k => $("#yexamples").insertAdjacentHTML("beforeend", `<option>${esc(k)}</option>`));
+  $("#yexamples").onchange = e => { const ex = D.examples.python[e.target.value]; if (ex) { yed.set(ex.code); $("#yinput").value = ex.input; store.set("codelab:free:python:in", ex.input); } };
+  $("#yrun").onclick = runY;
+  $("#ystop").onclick = () => { PyRunner.stop(); $("#yrun").disabled = false; $("#ystatus").textContent = "Stopped"; };
+  $("#yclear").onclick = () => { if (confirm("Clear the Python editor?")) yed.set(""); };
+  $("#ydownload").onclick = () => download("program.py", yed.get());
+
+  function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/plain" })); a.download = name; a.click(); }
+
+  /* ---------- practice questions ---------- */
+  const all = []; D.sets.forEach(s => s.questions.forEach(q => all.push({ set: s, q })));
+  const statusKey = (id, lang) => `codelab:status:${id}:${lang}`;
+  function listHTML(activeId) {
+    const sets = D.sets.slice().sort((a, b) => b.date.localeCompare(a.date));
+    return sets.map(s => `<h4>${esc(s.title)}<br><small>${new Date(s.date + "T00:00").toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" })}</small></h4>` +
+      s.questions.map(q => {
+        const st = [store.get(statusKey(q.id, "pseudo"), ""), store.get(statusKey(q.id, "python"), "")];
+        const mark = st.includes("submitted") ? "📨" : st.includes("passed") ? "✅" : st.some(Boolean) ? "•" : "";
+        return `<button data-q="${q.id}" class="${q.id === activeId ? "on" : ""}">${esc(q.title)}<span class="st">${mark} [${q.marks}]</span></button>`;
+      }).join("")).join("");
+  }
+  function showList(activeId) {
+    $("#qlist").innerHTML = listHTML(activeId);
+    $("#qlist").querySelectorAll("button").forEach(b => b.onclick = () => openQ(b.dataset.q));
+  }
+  let current = null;
+  function openQ(id) {
+    const hit = all.find(x => x.q.id === id) || all[0]; const { q, set } = hit;
+    store.set("codelab:lastq", q.id); showList(q.id);
+    let lang = store.get("codelab:lang:" + q.id, "pseudo");
+    const ex = q.tests[0];
+    $("#qview").innerHTML = `<div class="card">
+      <div class="btn-row" style="margin-top:0;justify-content:space-between"><span class="pill">${esc(set.title)}</span><span class="pill">[${q.marks} marks]</span></div>
+      <h2 style="margin:.3em 0">${esc(q.title)}</h2>${q.task}
+      <div class="example-io"><div><div class="label muted" style="font-size:.78rem;font-weight:700">EXAMPLE INPUT</div><pre>${esc(ex.input) || "(none)"}</pre></div>
+      <div><div class="label muted" style="font-size:.78rem;font-weight:700">EXPECTED OUTPUT</div><pre>${esc(ex.output) || "(an empty line)"}</pre></div></div>
+      <p class="muted" style="font-size:.85rem">${q.tests.length > 1 ? `There are ${q.tests.length - 1} more hidden tests, so make your program work for any input.` : ""}</p></div>
+      <div class="btn-row"><div class="lang-toggle"><button data-lang="pseudo">Pseudocode</button><button data-lang="python">Python</button></div>
+        <button class="btn" data-reset>↺ Reset my code</button></div>
+      <div class="lab-grid"><div><div id="qed"></div>
+        <div class="btn-row"><button class="btn" data-run>▶ Run</button><button class="btn primary" data-test>✔ Check with tests</button><button class="btn" data-submit>📨 Submit to teacher</button><span class="status" data-status></span></div></div>
+        <div class="io"><label for="qin">Input for Run</label><textarea id="qin"></textarea>
+        <label>Output</label><div class="console2" data-out><div class="c-in">Run your program to see the output</div></div></div></div>
+      <div data-tests style="margin-top:12px"></div>`;
+    const V = $("#qview");
+    let ed; let lastTests = null;
+    const starter = l => l === "pseudo" ? "// " + q.title + "\n// Declare all variables first\n\n" : "# " + q.title + "\n\n";
+    function mount() {
+      V.querySelectorAll("[data-lang]").forEach(b => b.classList.toggle("on", b.dataset.lang === lang));
+      ed = createEditor(V.querySelector("#qed"), { lang, storageKey: `codelab:code:${q.id}:${lang}`, value: starter(lang), onRun: run });
+      $("#qin").value = store.get(`codelab:in:${q.id}`, ex.input);
+      V.querySelector("[data-tests]").innerHTML = ""; lastTests = null;
+      V.querySelector("[data-out]").innerHTML = '<div class="c-in">Run your program to see the output</div>';
+    }
+    async function run() {
+      const st = V.querySelector("[data-status]"); st.textContent = "Running…";
+      const r = lang === "pseudo" ? runPseudo(ed.get(), $("#qin").value, q.files || {}) : await PyRunner.run(ed.get(), $("#qin").value, q.files || {}, { onStatus: t => st.textContent = t });
+      renderConsole(V.querySelector("[data-out]"), r); ed.markError(r.errorLine);
+      st.textContent = r.ok ? "Finished" : "Fix the error shown in red";
+      if (!store.get(statusKey(q.id, lang), "")) { store.set(statusKey(q.id, lang), "tried"); showList(q.id); }
+    }
+    async function test() {
+      const st = V.querySelector("[data-status]"); st.textContent = "Testing…";
+      lastTests = await runTests(lang, ed.get(), q.tests, q.files || {}, t => st.textContent = t);
+      const passed = renderTests(V.querySelector("[data-tests]"), lastTests);
+      st.textContent = `${passed}/${q.tests.length} tests passed`;
+      if (passed === q.tests.length && store.get(statusKey(q.id, lang), "") !== "submitted") store.set(statusKey(q.id, lang), "passed");
+      showList(q.id);
+      return passed;
+    }
+    V.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set("codelab:lang:" + q.id, lang); mount(); });
+    V.querySelector("[data-run]").onclick = run;
+    V.querySelector("[data-test]").onclick = test;
+    V.querySelector("[data-reset]").onclick = () => { if (confirm("Delete your code for this question and start again?")) ed.set(starter(lang)); };
+    V.querySelector("[data-submit]").onclick = async () => {
+      const name = (Hub.store.get("cs9618_student", "") || "").trim();
+      if (!name) { Hub.toast("Type your name in the Name box at the top first"); document.querySelector(".student-name").focus(); return; }
+      if (!ed.get().trim()) { Hub.toast("Write your program first"); return; }
+      const passed = await test();
+      Hub.saveScore({ topic: "Code Lab", activity: `${set.title} — ${q.title} [${lang === "pseudo" ? "Pseudocode" : "Python"}]`, type: "Program submission", score: passed, max: q.tests.length,
+        details: `[${lang === "pseudo" ? "PSEUDOCODE" : "PYTHON"} · ${q.id} · ${passed}/${q.tests.length} tests]\n` + ed.get() });
+      store.set(statusKey(q.id, lang), "submitted"); showList(q.id);
+    };
+    $("#qin") && $("#qin").addEventListener("input", () => store.set(`codelab:in:${q.id}`, $("#qin").value));
+    mount();
+    V.addEventListener("input", e => { if (e.target.id === "qin") store.set(`codelab:in:${q.id}`, e.target.value); });
+    current = q;
+  }
+  openQ(store.get("codelab:lastq", all[0].q.id));
+})();
+</script>
+</body>
+</html>

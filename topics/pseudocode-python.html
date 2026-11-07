@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pseudocode &amp; Python</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner">
+  <a class="brand" href="../index.html"><span class="logo">CS</span>9618 Study Hub</a>
+  <nav class="topnav">
+    <a href="../index.html">Home</a>
+    <a href="pseudocode-python.html" class="active">Pseudocode &amp; Python</a>
+    <a href="../scores.html">My scores</a>
+    <button data-theme-toggle title="Switch light/dark">◐</button>
+    <label class="student-chip"><span class="hide-sm">Name</span><input class="student-name" type="text" placeholder="Your full name"></label>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <p class="crumbs"><a href="../index.html">Home</a> › Paper 2 › Pseudocode &amp; Python</p>
+  <h1>Pseudocode &amp; Python</h1>
+  <p class="lead">Textbook Chapter 9 (Algorithm design and problem solving, pp. 217–237) and Chapter 11 (Programming, pp. 264–282), plus the array and file sections of Chapter 10. Paper 2 is answered in <b>Cambridge pseudocode</b>, not Python, so this page shows both side by side.</p>
+
+  <nav class="tabs" data-tabs="main">
+    <button data-tab="notes">📘 Notes</button>
+    <button data-tab="terms">🔑 Key terms</button>
+    <button data-tab="sims">🧪 Simulations</button>
+    <button data-tab="activities">📝 Textbook activities</button>
+    <button data-tab="eoc">📚 End-of-chapter</button>
+    <button data-tab="pastpaper">📄 Past paper focus</button>
+    <button data-tab="practice">🎯 Exam practice</button>
+    <button data-tab="quizzes">🎮 Quizzes</button>
+  </nav>
+
+  <!-- ===================== NOTES ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="notes">
+    <div class="subtabs" data-tabs="notes">
+      <button data-tab="n-think">9.1 Computational thinking</button>
+      <button data-tab="n-alg">9.2 Algorithms</button>
+      <button data-tab="n-basics">11.1 Variables &amp; data types</button>
+      <button data-tab="n-sel">IF &amp; CASE</button>
+      <button data-tab="n-loop">Loops</button>
+      <button data-tab="n-sub">11.3 Procedures &amp; functions</button>
+      <button data-tab="n-str">Strings &amp; built-in functions</button>
+      <button data-tab="n-arr">Arrays (10.2)</button>
+      <button data-tab="n-file">Text files (10.3)</button>
+      <button data-tab="n-py">Pseudocode ↔ Python</button>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-think">
+      <p class="ref">Textbook 9.1 · pp. 217–219</p>
+      <h2>Computational thinking skills</h2>
+      <p>Before writing any code, a programmer has to understand the problem and plan a solution. The textbook names four skills.</p>
+      <div class="table-wrap"><table>
+        <tr><th>Skill</th><th>What it means</th><th>Example</th></tr>
+        <tr><td><b>Abstraction</b></td><td>Keep only the details needed to solve the problem; leave out everything else.</td><td>A road map keeps road names and junctions but leaves out buildings and trees. A rail map keeps only stations and lines.</td></tr>
+        <tr><td><b>Decomposition</b></td><td>Break a large problem into smaller parts that are easier to solve, and solve each one.</td><td>A school system is split into attendance, timetable and grades modules.</td></tr>
+        <tr><td><b>Pattern recognition</b></td><td>Spot parts that are the same or similar, so one solution can be reused.</td><td>Drawing any regular polygon repeats "draw a side, turn" (Activity 9A).</td></tr>
+        <tr><td><b>Stepwise refinement</b></td><td>Break each step of an algorithm into smaller, more detailed steps until each one can be written as a single program statement.</td><td>"Enter time" → enter hours → check 2–8 → re-enter if invalid.</td></tr>
+      </table></div>
+      <div class="callout tip"><p><b>Exam tip (June 2024 P21 Q7a):</b> when asked for an <i>advantage of abstraction in a scenario</i>, don't just give the definition. Say what it does for <b>this</b> problem, e.g. "only the data needed by the new module is stored, so the program is simpler to write and quicker to run."</p></div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-alg" hidden>
+      <p class="ref">Textbook 9.2 · pp. 219–235</p>
+      <h2>Algorithms</h2>
+      <p>An <b>algorithm</b> is an ordered set of steps that solves a problem. There are three ways to write one down.</p>
+      <div class="table-wrap"><table>
+        <tr><th>Method</th><th>Description</th></tr>
+        <tr><td><b>Structured English</b></td><td>Numbered steps in plain English with a limited set of words. It must be unambiguous, but it follows no fixed rules.</td></tr>
+        <tr><td><b>Flowchart</b></td><td>A diagram of shapes joined by flow lines. Terminator = start/end; parallelogram = input/output; rectangle = process; diamond = decision, with <b>Yes/No</b> labels on its exits.</td></tr>
+        <tr><td><b>Pseudocode</b></td><td>A precise, language-independent way to write an algorithm using agreed keywords such as <code>INPUT</code>, <code>OUTPUT</code>, <code>IF</code>, <code>FOR</code> and <code>←</code>. Cambridge's style is set out in the Pseudocode Guide and the exam insert.</td></tr>
+      </table></div>
+      <h3>Identifier tables</h3>
+      <p>Every algorithm in the book starts with an <b>identifier table</b>: one row per variable or constant, with its name, data type and description. Exams often ask you to complete one.</p>
+      <div class="table-wrap"><table><tr><th>Identifier</th><th>Data type</th><th>Description</th></tr>
+        <tr><td>StudentName</td><td>STRING</td><td>Stores a student's name</td></tr>
+        <tr><td>StudentMark</td><td>INTEGER</td><td>Stores a student's mark</td></tr>
+        <tr><td>Counter</td><td>INTEGER</td><td>Loop counter</td></tr></table></div>
+      <h3>The three basic constructs</h3>
+      <ul>
+        <li><b>Sequence</b> — statements run one after another.</li>
+        <li><b>Selection</b> — <code>IF</code> or <code>CASE</code> chooses which statements run.</li>
+        <li><b>Iteration</b> — <code>FOR</code>, <code>REPEAT … UNTIL</code> or <code>WHILE … ENDWHILE</code> repeats statements.</li>
+      </ul>
+      <h3>Assignment and operators</h3>
+<pre data-lang="pseudo">Counter ← 1
+Counter ← Counter + 1           // Counter is now 2
+LetterValue ← ASC("A")          // 65
+Percentage ← (StudentMark / 80) * 100
+NewString ← OldString &amp; " ninety-seven"   // &amp; joins strings</pre>
+      <div class="table-wrap"><table><tr><th>Type</th><th>Operators</th></tr>
+        <tr><td>Arithmetic</td><td><code>+  -  *  /  ^</code> (power), <code>DIV</code> (whole-number quotient), <code>MOD</code> (remainder)</td></tr>
+        <tr><td>Comparison</td><td><code>=  &lt;&gt;  &lt;  &gt;  &lt;=  &gt;=</code></td></tr>
+        <tr><td>Logical</td><td><code>AND  OR  NOT</code> — use brackets to make the order clear</td></tr>
+        <tr><td>String</td><td><code>&amp;</code> concatenation</td></tr></table></div>
+      <h3>Translating structured English and flowcharts into pseudocode</h3>
+      <p>The book works through a marathon runner example. Each English step becomes one or more pseudocode statements:</p>
+      <ol><li>"Enter …" → a prompt <code>OUTPUT</code>, then <code>INPUT</code>.</li><li>"Calculate …" → an assignment with <code>←</code>.</li><li>"If … then …" → <code>IF … THEN … ENDIF</code>.</li><li>"Repeat …" or "for each …" → a loop.</li><li>"Output …" → <code>OUTPUT</code>.</li></ol>
+<pre data-lang="pseudo">// Marathon time: hours, minutes, seconds → total seconds
+DECLARE Hours, Minutes, Seconds, MarathonSeconds : INTEGER
+OUTPUT "Enter hours, minutes and seconds"
+INPUT Hours
+INPUT Minutes
+INPUT Seconds
+MarathonSeconds ← (Hours * 60 + Minutes) * 60 + Seconds
+OUTPUT "Time in seconds is ", MarathonSeconds</pre>
+      <div class="callout warn"><b>New since 2024:</b> you must also be able to go the <b>other way</b>, writing a flowchart or structured-English description <i>from</i> given pseudocode. Practice question P3 covers this.</div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-basics" hidden>
+      <p class="ref">Textbook 11.1.1 · pp. 264–269 · data types p. 238</p>
+      <h2>Constants, variables and data types</h2>
+      <p>A <b>variable</b> is a named value that can change while the program runs. A <b>constant</b> is a named value that cannot change. Declare everything before you use it, and give every variable a starting value.</p>
+<pre data-lang="pseudo">DECLARE Radius : REAL
+DECLARE Volume : REAL
+DECLARE SurfaceArea : REAL
+CONSTANT Pi ← 3.142
+
+OUTPUT "Please enter the radius of the sphere"
+INPUT Radius
+WHILE Radius &lt;= 0 DO
+    OUTPUT "Please enter a positive number"
+    INPUT Radius
+ENDWHILE
+Volume ← (4 / 3) * Pi * Radius * Radius * Radius
+SurfaceArea ← 4 * Pi * Radius * Radius
+OUTPUT "Volume is ", Volume
+OUTPUT "Surface area is ", SurfaceArea</pre>
+      <p class="muted">This follows the textbook's sphere example (Example 11.1). Python version:</p>
+<pre data-lang="python">PI = 3.142                      # Python has no true constants: CAPITALS by convention
+radius = float(input("Please enter the radius of the sphere "))
+while radius &lt;= 0:
+    radius = float(input("Please enter a positive number "))
+volume = (4 / 3) * PI * radius ** 3
+surface_area = 4 * PI * radius ** 2
+print("Volume is", volume)
+print("Surface area is", surface_area)</pre>
+      <h3>Data types</h3>
+      <div class="table-wrap"><table><tr><th>Type</th><th>Holds</th><th>Example literal</th><th>Python</th></tr>
+        <tr><td>INTEGER</td><td>Whole number</td><td><code>5</code>, <code>-3</code></td><td>int</td></tr>
+        <tr><td>REAL</td><td>Number with a fractional part</td><td><code>4.7</code>, <code>-0.5</code></td><td>float</td></tr>
+        <tr><td>CHAR</td><td>A single character</td><td><code>'A'</code> (single quotes)</td><td>str of length 1</td></tr>
+        <tr><td>STRING</td><td>Zero or more characters</td><td><code>"Hello"</code> (double quotes)</td><td>str</td></tr>
+        <tr><td>BOOLEAN</td><td>TRUE or FALSE</td><td><code>TRUE</code></td><td>bool (<code>True</code>)</td></tr>
+        <tr><td>DATE</td><td>A date</td><td><code>04/10/2003</code></td><td>datetime.date</td></tr></table></div>
+      <div class="callout bad"><b>June 2024 P21 Q1(a):</b> <code>"Odd OR Even"</code> is a <b>STRING</b>, because it is in quotation marks. Many candidates wrote BOOLEAN because they saw the word OR.</div>
+      <div class="callout tip"><b>Identifier names:</b> use meaningful names such as <code>TotalMarks</code>, not <code>A</code> or <code>B</code>. Single letters make code hard to understand and maintain, and are easy to mix up. Other good practice: comments, indentation, constants for fixed values, and initialising variables.</div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-sel" hidden>
+      <p class="ref">Textbook 9.2 (p. 224) and 11.2.1 · pp. 271–274</p>
+      <h2>Selection: IF and CASE</h2>
+      <div class="two-col"><div><div class="label">Pseudocode</div>
+<pre data-lang="pseudo">IF MyValue &gt; YourValue
+  THEN
+    OUTPUT "I win"
+  ELSE
+    OUTPUT "You win"
+ENDIF</pre></div><div><div class="label">Python</div>
+<pre data-lang="python">if my_value &gt; your_value:
+    print("I win")
+else:
+    print("You win")</pre></div></div>
+      <p>In Cambridge style <code>THEN</code> usually goes on its own line, but writing it on the IF line is also accepted. Every <code>IF</code> must close with <code>ENDIF</code>. Nested IFs need one <code>ENDIF</code> for each <code>IF</code>.</p>
+      <h3>Nested IF (there is no ELSEIF in Cambridge pseudocode)</h3>
+<pre data-lang="pseudo">IF Mark &lt; 40
+  THEN
+    Grade ← "Fail"
+  ELSE
+    IF Mark &lt; 60
+      THEN
+        Grade ← "Pass"
+      ELSE
+        IF Mark &lt; 80
+          THEN
+            Grade ← "Merit"
+          ELSE
+            Grade ← "Distinction"
+        ENDIF
+    ENDIF
+ENDIF</pre>
+      <h3>CASE: use it when ONE variable is tested against many values</h3>
+<pre data-lang="pseudo">CASE OF Choice
+    1      : OUTPUT "Routine 1"
+    2      : OUTPUT "Routine 2"
+    3      : OUTPUT "Routine 3"
+    4 TO 6 : OUTPUT "Routine not written"
+    10     : OUTPUT "Exit"
+    OTHERWISE : OUTPUT "Incorrect choice"
+ENDCASE</pre>
+      <p>A CASE clause can test a single value, a list (<code>'a', 'e'</code>) or a range (<code>4 TO 6</code>). <code>OTHERWISE</code> catches anything else and must come last.</p>
+      <div class="two-col"><div><div class="label">Python 3.10+ (match)</div>
+<pre data-lang="python">match choice:
+    case 1: print("Routine 1")
+    case 2: print("Routine 2")
+    case 4 | 5 | 6: print("Routine not written")
+    case _: print("Incorrect choice")</pre></div><div><div class="label">Python (any version)</div>
+<pre data-lang="python">if choice == 1:
+    print("Routine 1")
+elif choice == 2:
+    print("Routine 2")
+elif 4 &lt;= choice &lt;= 6:
+    print("Routine not written")
+else:
+    print("Incorrect choice")</pre></div></div>
+      <div class="callout warn"><b>Common errors:</b> writing <code>CASE Choice</code> (it must be <code>CASE OF Choice</code>); using <code>ELSE</code> instead of <code>OTHERWISE</code>; closing with <code>ENDIF</code>; leaving out the colon after a value.<br><b>June 2024 P21 Q5(b):</b> to call an error routine for any other value, add the single line <code>OTHERWISE : CALL Error(C)</code> just before <code>ENDCASE</code>.</div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-loop" hidden>
+      <p class="ref">Textbook 9.2 (p. 225) and 11.2.2 · pp. 274–275</p>
+      <h2>Iteration: three kinds of loop</h2>
+      <div class="table-wrap"><table><tr><th>Loop</th><th>Type</th><th>When to use</th><th>Runs at least once?</th></tr>
+        <tr><td><code>FOR … NEXT</code></td><td>Count-controlled</td><td>The number of repeats is known</td><td>Yes, if start ≤ end</td></tr>
+        <tr><td><code>REPEAT … UNTIL</code></td><td>Post-condition</td><td>Validation; must run at least once</td><td><b>Always</b></td></tr>
+        <tr><td><code>WHILE … DO … ENDWHILE</code></td><td>Pre-condition</td><td>May need to run zero times</td><td>Not necessarily</td></tr></table></div>
+      <div class="two-col"><div><div class="label">Pseudocode</div>
+<pre data-lang="pseudo">Total ← 0
+FOR Counter ← 1 TO 10
+    OUTPUT "Enter a number"
+    INPUT Number
+    Total ← Total + Number
+NEXT Counter
+OUTPUT "The total is ", Total
+
+FOR Counter ← 1 TO 10 STEP 2
+    OUTPUT Counter      // 1 3 5 7 9
+NEXT Counter</pre></div><div><div class="label">Python</div>
+<pre data-lang="python">total = 0
+for counter in range(1, 11):     # 11, not 10!
+    number = int(input("Enter a number "))
+    total = total + number
+print("The total is", total)
+
+for counter in range(1, 11, 2):
+    print(counter)               # 1 3 5 7 9</pre></div></div>
+      <div class="callout bad"><b>The biggest Python trap:</b> <code>FOR i ← 1 TO 10</code> <b>includes</b> 10. Python's <code>range(1, 10)</code> <b>stops at 9</b>. Try the Loop Visualiser in Simulations.</div>
+      <h3>Validation: REPEAT is the better choice (textbook p. 274)</h3>
+      <div class="two-col"><div><div class="label">REPEAT … UNTIL — one INPUT</div>
+<pre data-lang="pseudo">REPEAT
+    OUTPUT "Enter value 0 to 10"
+    INPUT Value
+UNTIL Value &gt;= 0 AND Value &lt;= 10</pre></div><div><div class="label">WHILE — needs an INPUT before AND inside</div>
+<pre data-lang="pseudo">OUTPUT "Enter value 0 to 10"
+INPUT Value
+WHILE Value &lt; 0 OR Value &gt; 10 DO
+    OUTPUT "Enter value 0 to 10"
+    INPUT Value
+ENDWHILE</pre></div></div>
+      <p>Notice the conditions are opposite. REPEAT stops when the value is <b>valid</b>; WHILE keeps going while it is <b>invalid</b>. Python has no REPEAT, so it uses <code>while</code> with the opposite condition, or <code>while True: … break</code>.</p>
+      <h3>Nested loops (patterns, 2D arrays)</h3>
+<pre data-lang="pseudo">DECLARE Rows, Row, Col, Total : INTEGER
+DECLARE Line : STRING
+INPUT Rows
+Total ← 0
+FOR Row ← 1 TO Rows
+    Line ← ""                      // reset for every row
+    FOR Col ← 1 TO Row
+        Line ← Line &amp; "#"
+    NEXT Col
+    OUTPUT Line
+    Total ← Total + Row
+NEXT Row
+OUTPUT "Total: ", Total</pre>
+      <h3>Standard loop patterns to memorise</h3>
+      <div class="table-wrap"><table><tr><th>Pattern</th><th>Before loop</th><th>Inside loop</th><th>After loop</th></tr>
+        <tr><td>Total</td><td><code>Total ← 0</code></td><td><code>Total ← Total + X</code></td><td>output Total</td></tr>
+        <tr><td>Count</td><td><code>Count ← 0</code></td><td><code>IF cond THEN Count ← Count + 1</code></td><td>output Count</td></tr>
+        <tr><td>Average</td><td>Total, Count ← 0</td><td>add and count</td><td><code>IF Count &gt; 0 THEN Total / Count</code></td></tr>
+        <tr><td>Maximum</td><td><code>Max ← first value</code></td><td><code>IF X &gt; Max THEN Max ← X</code></td><td>output Max</td></tr>
+        <tr><td>Rogue value</td><td>input first value</td><td>process, then input next</td><td>loop: <code>WHILE X &lt;&gt; -1</code></td></tr></table></div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-sub" hidden>
+      <p class="ref">Textbook 11.3 · pp. 275–280</p>
+      <h2>Procedures and functions</h2>
+      <p>A <b>procedure</b> is a named block of statements that is defined once and can be called many times. A <b>function</b> is the same, but it <b>always returns a value</b>, so a function call is used inside an expression.</p>
+      <div class="two-col"><div><div class="label">Procedure with a parameter</div>
+<pre data-lang="pseudo">PROCEDURE Stars(Number : INTEGER)
+    DECLARE Counter : INTEGER
+    FOR Counter ← 1 TO Number
+        OUTPUT "*"
+    NEXT Counter
+ENDPROCEDURE
+
+CALL Stars(7)</pre></div><div><div class="label">Python</div>
+<pre data-lang="python">def stars(number):
+    for counter in range(number):
+        print("*", end="")
+
+stars(7)</pre></div></div>
+      <div class="two-col"><div><div class="label">Function</div>
+<pre data-lang="pseudo">FUNCTION Celsius(Temp : REAL) RETURNS REAL
+    RETURN (Temp - 32) / 1.8
+ENDFUNCTION
+
+MyTemp ← Celsius(MyTemp)</pre></div><div><div class="label">Python</div>
+<pre data-lang="python">def celsius(temp):
+    return (temp - 32) / 1.8
+
+my_temp = celsius(my_temp)</pre></div></div>
+      <h3>By value vs by reference</h3>
+<pre data-lang="pseudo">PROCEDURE Celsius(BYREF Temperature : REAL)
+    Temperature ← (Temperature - 32) / 1.8     // changes the caller's variable
+ENDPROCEDURE
+CALL Celsius(MyTemp)</pre>
+      <div class="table-wrap"><table><tr><th></th><th>BYVAL (default)</th><th>BYREF</th></tr>
+        <tr><td>What is passed</td><td>A copy of the value</td><td>The address of the original variable</td></tr>
+        <tr><td>Can the procedure change the caller's variable?</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Python</td><td>Behaves like by value for numbers and strings</td><td>Not directly: return the new value, or use a list</td></tr></table></div>
+      <h3>Header, parameters and arguments</h3>
+      <ul><li><b>Header</b>: the first line. It gives the name, the parameters with their types, and (for a function) <code>RETURNS</code> type.</li>
+      <li><b>Parameter</b>: the variable named in the header. <b>Argument</b>: the actual value passed in the call.</li>
+      <li>Arguments must match the parameters in <b>number, order and data type</b>.</li>
+      <li>A procedure call is a statement on its own (<code>CALL</code>). A function call goes on the right-hand side of an expression.</li></ul>
+      <div class="callout bad"><b>Examiner report, June 2024:</b> candidates used <code>OUTPUT</code> where the function should <code>RETURN</code> a value, and left out <code>ENDFUNCTION</code>. Both lose marks.</div>
+      <div class="callout"><b>Structure charts (Q7b, June 2024):</b> if a module sends back <b>one</b> value, write it as a FUNCTION. If it changes a parameter (arrow going in and coming back out), use a PROCEDURE with <code>BYREF</code>. Example header: <code>PROCEDURE SubA(Name : STRING, BYREF P2 : REAL)</code>.</div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-str" hidden>
+      <p class="ref">Textbook 11.1 (Example 11.2, pp. 269–271) · exam insert functions</p>
+      <h2>Strings and built-in (library) functions</h2>
+      <p>A <b>library routine</b> is a tested routine that comes ready to use in the programming language's development system. Paper 2 provides an <b>insert</b> listing the functions you may use. Use only those.</p>
+      <div class="table-wrap"><table><tr><th>Pseudocode</th><th>Returns</th><th>Example</th><th>Python</th></tr>
+        <tr><td><code>LENGTH(S)</code></td><td>Number of characters</td><td><code>LENGTH("Happy Days")</code> → 10</td><td><code>len(s)</code></td></tr>
+        <tr><td><code>LEFT(S, x)</code></td><td>Leftmost x chars</td><td><code>LEFT("ABCDEFGH", 3)</code> → "ABC"</td><td><code>s[:3]</code></td></tr>
+        <tr><td><code>RIGHT(S, x)</code></td><td>Rightmost x chars</td><td><code>RIGHT("ABCDEFGH", 3)</code> → "FGH"</td><td><code>s[-3:]</code></td></tr>
+        <tr><td><code>MID(S, x, y)</code></td><td>y chars starting at position x (1 is first)</td><td><code>MID("ABCDEFGH", 2, 3)</code> → "BCD"</td><td><code>s[1:4]</code></td></tr>
+        <tr><td><code>TO_UPPER(S)</code> / <code>TO_LOWER(S)</code></td><td>Changed case</td><td><code>TO_LOWER("JIM")</code> → "jim"</td><td><code>s.upper()</code> / <code>s.lower()</code></td></tr>
+        <tr><td><code>NUM_TO_STR(x)</code></td><td>Number → string</td><td><code>NUM_TO_STR(87.5)</code> → "87.5"</td><td><code>str(x)</code></td></tr>
+        <tr><td><code>STR_TO_NUM(S)</code></td><td>String → number</td><td><code>STR_TO_NUM("23.45")</code> → 23.45</td><td><code>float(s)</code></td></tr>
+        <tr><td><code>IS_NUM(S)</code></td><td>TRUE if S is numeric</td><td><code>IS_NUM("-12.36")</code> → TRUE</td><td>try/except float()</td></tr>
+        <tr><td><code>ASC(c)</code> / <code>CHR(x)</code></td><td>ASCII code ↔ character</td><td><code>ASC('A')</code> → 65</td><td><code>ord()</code> / <code>chr()</code></td></tr>
+        <tr><td><code>INT(x)</code></td><td>Integer part</td><td><code>INT(27.54)</code> → 27</td><td><code>int(x)</code></td></tr>
+        <tr><td><code>RAND(x)</code></td><td>Random real, 0 to x (not x)</td><td><code>RAND(87)</code></td><td><code>random.random()*x</code></td></tr>
+        <tr><td><code>x MOD y</code> / <code>x DIV y</code></td><td>Remainder / whole quotient</td><td><code>10 MOD 3</code> → 1, <code>10 DIV 3</code> → 3</td><td><code>%</code> / <code>//</code></td></tr></table></div>
+      <div class="callout warn"><b>Positions start at 1 in pseudocode</b> but at 0 in Python. <code>MID(S, 1, 1)</code> is the first character; in Python that is <code>s[0]</code>.</div>
+      <h3>Looping through every character</h3>
+<pre data-lang="pseudo">Count ← 0
+FOR i ← 1 TO LENGTH(Word)
+    IF MID(Word, i, 1) = 'a'
+      THEN
+        Count ← Count + 1
+    ENDIF
+NEXT i</pre>
+      <h3>Password check (based on the textbook's Example 11.2)</h3>
+<pre data-lang="pseudo">CONSTANT StoredPassword ← "Secret"
+DECLARE InputPassword : STRING
+OUTPUT "Please enter your password"
+INPUT InputPassword
+IF LENGTH(InputPassword) = LENGTH(StoredPassword)
+  THEN
+    IF LEFT(InputPassword, 1) = LEFT(StoredPassword, 1) AND
+       RIGHT(InputPassword, 1) = RIGHT(StoredPassword, 1)
+      THEN
+        OUTPUT "Correct first and last letters"
+      ELSE
+        OUTPUT "Password entered is incorrect"
+    ENDIF
+  ELSE
+    OUTPUT "Password entered is incorrect"
+ENDIF</pre>
+      <div class="callout"><b>June 2024 P21 Q8 (removing a comment):</b> to look for <code>"//"</code>, take two characters with <code>MID(Line, i, 2)</code>, and loop only to <code>LENGTH(Line) - 1</code> so that you never read past the end of the string.</div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-arr" hidden>
+      <p class="ref">Textbook 10.2 · pp. 241–249</p>
+      <h2>1D and 2D arrays</h2>
+      <p>An <b>array</b> is a data structure that holds several items of the <b>same data type</b> under one identifier. Each item is reached by its <b>index</b>. Cambridge arrays usually start at index 1.</p>
+<pre data-lang="pseudo">DECLARE Names : ARRAY[1:30] OF STRING
+DECLARE Board : ARRAY[1:3, 1:3] OF CHAR      // 2D: rows, columns
+
+Names[1] ← "Ali"
+Board[2, 3] ← 'X'
+
+// Initialise a 2D array
+FOR Row ← 1 TO 3
+    FOR Col ← 1 TO 3
+        Board[Row, Col] ← ' '
+    NEXT Col
+NEXT Row</pre>
+      <h3>Linear search</h3>
+<pre data-lang="pseudo">Found ← FALSE
+Index ← 1
+WHILE Index &lt;= 30 AND Found = FALSE DO
+    IF Names[Index] = SearchName
+      THEN
+        Found ← TRUE
+      ELSE
+        Index ← Index + 1
+    ENDIF
+ENDWHILE</pre>
+      <h3>Bubble sort</h3>
+<pre data-lang="pseudo">Top ← 9
+REPEAT
+    Swap ← FALSE
+    FOR j ← 1 TO Top
+        IF List[j] &gt; List[j + 1]
+          THEN
+            Temp ← List[j]
+            List[j] ← List[j + 1]
+            List[j + 1] ← Temp
+            Swap ← TRUE
+        ENDIF
+    NEXT j
+    Top ← Top - 1
+UNTIL NOT Swap OR Top = 0</pre>
+      <div class="callout bad"><b>June 2024 P21 Q4:</b> to total the odd <b>positions</b>, test <code>Index MOD 2</code>, not <code>Data[Index] MOD 2</code>. The most common error was testing the array <i>value</i> instead of the <i>index</i>.</div>
+      <p class="muted">Python lists start at index 0: <code>names = [""] * 30</code>, <code>board = [[" "] * 3 for _ in range(3)]</code>.</p>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-file" hidden>
+      <p class="ref">Textbook 10.3 · p. 249</p>
+      <h2>Text files</h2>
+      <p>Data in a text file is kept after the program ends. A file is opened in one of three modes: <b>READ</b>, <b>WRITE</b> (makes a new file, or replaces an existing one) or <b>APPEND</b> (adds to the end).</p>
+      <div class="two-col"><div><div class="label">Pseudocode</div>
+<pre data-lang="pseudo">DECLARE Line : STRING
+DECLARE Count : INTEGER
+Count ← 0
+OPENFILE "Trees.txt" FOR READ
+WHILE NOT EOF("Trees.txt")
+    READFILE "Trees.txt", Line
+    Count ← Count + 1
+ENDWHILE
+CLOSEFILE "Trees.txt"
+
+OPENFILE NewFile FOR WRITE   // NewFile holds the name
+WRITEFILE NewFile, "Hello"
+CLOSEFILE NewFile</pre></div><div><div class="label">Python</div>
+<pre data-lang="python">count = 0
+with open("Trees.txt", "r") as f:
+    for line in f:
+        line = line.strip()
+        count = count + 1
+
+new_file = "out.txt"
+with open(new_file, "w") as f:
+    f.write("Hello\n")</pre></div></div>
+      <div class="callout warn"><b>June 2024 P21 Q8(b):</b> when the file name is held in a variable, do <b>not</b> put it in quotation marks (<code>OPENFILE NewFile FOR WRITE</code>). Always <code>CLOSEFILE</code>, and set any count to 0 before the loop.</div>
+    </div>
+
+    <div class="panel" data-panel-group="notes" data-panel="n-py" hidden>
+      <h2>Pseudocode ↔ Python translation table</h2>
+      <p>Paper 2 marks <b>pseudocode</b>. The 2024 examiner report warns that "variations with their studied programming language will be unacceptable". Learn this table.</p>
+      <div class="table-wrap"><table>
+        <tr><th>Idea</th><th>Python</th><th>Cambridge pseudocode</th></tr>
+        <tr><td>Declare</td><td>not needed</td><td><code>DECLARE Rows : INTEGER</code></td></tr>
+        <tr><td>Constant</td><td><code>PI = 3.142</code></td><td><code>CONSTANT Pi ← 3.142</code></td></tr>
+        <tr><td>Assign</td><td><code>x = 5</code></td><td><code>x ← 5</code></td></tr>
+        <tr><td>Equal / not equal</td><td><code>==</code> / <code>!=</code></td><td><code>=</code> / <code>&lt;&gt;</code></td></tr>
+        <tr><td>Input</td><td><code>x = int(input("Msg"))</code></td><td><code>OUTPUT "Msg"</code> then <code>INPUT x</code></td></tr>
+        <tr><td>Output</td><td><code>print("Total:", t)</code></td><td><code>OUTPUT "Total: ", t</code></td></tr>
+        <tr><td>Join strings</td><td><code>a + b</code></td><td><code>a &amp; b</code></td></tr>
+        <tr><td>Repeat a string</td><td><code>"#" * 4</code></td><td>not allowed: build it with a loop</td></tr>
+        <tr><td>Count loop</td><td><code>for i in range(1, n + 1):</code></td><td><code>FOR i ← 1 TO n … NEXT i</code></td></tr>
+        <tr><td>Count down</td><td><code>range(n, 0, -1)</code></td><td><code>FOR i ← n TO 1 STEP -1</code></td></tr>
+        <tr><td>While</td><td><code>while x &lt; 5:</code></td><td><code>WHILE x &lt; 5 DO … ENDWHILE</code></td></tr>
+        <tr><td>Post-condition loop</td><td>none</td><td><code>REPEAT … UNTIL cond</code></td></tr>
+        <tr><td>else-if</td><td><code>elif</code></td><td>nested IF in the ELSE, or CASE</td></tr>
+        <tr><td>Block end</td><td>indentation</td><td><code>ENDIF  NEXT  ENDWHILE  ENDCASE  ENDPROCEDURE  ENDFUNCTION</code></td></tr>
+        <tr><td>Logic</td><td><code>and or not</code>, <code>True</code></td><td><code>AND OR NOT</code>, <code>TRUE</code></td></tr>
+        <tr><td>Length</td><td><code>len(s)</code></td><td><code>LENGTH(s)</code></td></tr>
+        <tr><td>One character</td><td><code>s[0]</code></td><td><code>MID(s, 1, 1)</code></td></tr>
+        <tr><td>DIV / MOD</td><td><code>//</code> / <code>%</code></td><td><code>DIV</code> / <code>MOD</code></td></tr>
+        <tr><td>Power</td><td><code>x ** 2</code></td><td><code>x ^ 2</code></td></tr>
+        <tr><td>Function</td><td><code>def f(x): return …</code></td><td><code>FUNCTION F(x : INTEGER) RETURNS INTEGER … RETURN … ENDFUNCTION</code></td></tr>
+        <tr><td>Comment</td><td><code># …</code></td><td><code>// …</code></td></tr></table></div>
+      <div class="callout tip"><b>Write-a-program template</b> (6–8 mark questions):<br>1. <b>DECLARE</b> every variable with its type → 2. <b>INPUT</b> with a prompt → 3. <b>initialise</b> totals and counters to 0, strings to "" → 4. <b>loop(s)</b> → 5. <b>OUTPUT</b> or <b>RETURN</b>. Close every block.</div>
+    </div>
+  </section>
+
+  <!-- ===================== KEY TERMS ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="terms" hidden>
+    <h2>Key terms</h2>
+    <p class="muted">Definitions in exam-ready wording, matching the key-term boxes in Chapter 9 (p. 217), Chapter 10 (p. 238) and Chapter 11 (pp. 264, 275).</p>
+    <input class="search" type="text" placeholder="Search key terms…" data-term-search="termgrid">
+    <div class="terms" id="termgrid"></div>
+  </section>
+
+  <!-- ===================== SIMULATIONS ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="sims" hidden>
+    <div class="subtabs" data-tabs="sims">
+      <button data-tab="s-trace">Trace-table stepper</button>
+      <button data-tab="s-loop">Loop visualiser (FOR vs range)</button>
+      <button data-tab="s-translate">Pseudocode ↔ Python linker</button>
+      <button data-tab="s-pattern">Pattern builder</button>
+      <button data-tab="s-str">String function lab</button>
+    </div>
+    <div class="panel" data-panel-group="sims" data-panel="s-trace"><div id="sim-trace"></div></div>
+    <div class="panel" data-panel-group="sims" data-panel="s-loop" hidden><div id="sim-loop"></div></div>
+    <div class="panel" data-panel-group="sims" data-panel="s-translate" hidden><div id="sim-translate"></div></div>
+    <div class="panel" data-panel-group="sims" data-panel="s-pattern" hidden><div id="sim-pattern"></div></div>
+    <div class="panel" data-panel-group="sims" data-panel="s-str" hidden><div id="sim-str"></div></div>
+  </section>
+
+  <!-- ===================== ACTIVITIES ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="activities" hidden>
+    <h2>Textbook activity answers</h2>
+    <p class="muted">Model answers for every activity in Chapters 9 and 11. Open the matching page in your textbook for the full task.</p>
+    <div class="subtabs" data-tabs="act"><button data-tab="a9">Chapter 9 (9A–9I)</button><button data-tab="a11">Chapter 11 (11A–11I)</button></div>
+    <div class="panel" data-panel-group="act" data-panel="a9" id="act9"></div>
+    <div class="panel" data-panel-group="act" data-panel="a11" id="act11" hidden></div>
+  </section>
+
+  <!-- ===================== END OF CHAPTER ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="eoc" hidden>
+    <h2>End-of-chapter question answers</h2>
+    <p class="muted">Try each question first, then open it to compare with the answer and mark points.</p>
+    <div class="subtabs" data-tabs="eoc"><button data-tab="e9">Chapter 9 (p. 236)</button><button data-tab="e11">Chapter 11 (pp. 280–282)</button></div>
+    <div class="panel" data-panel-group="eoc" data-panel="e9" id="eoc9"></div>
+    <div class="panel" data-panel-group="eoc" data-panel="e11" id="eoc11" hidden></div>
+  </section>
+
+  <!-- ===================== PAST PAPER ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="pastpaper" hidden>
+    <h2>Past paper focus: 9618/21 May/June 2024</h2>
+    <p>The table maps each question to its topic, using the mark scheme and the Principal Examiner Report.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Where candidates lost marks</th><th>Notes tab</th></tr>
+      <tr><td>1(a)</td><td>Choosing data types for assignments</td><td>4</td><td>A string in quotes containing the word OR was called BOOLEAN</td><td>Variables &amp; data types</td></tr>
+      <tr><td>1(b)</td><td>Evaluating expressions (AND/NOT, MOD, MID, &amp;)</td><td>4</td><td>Missing quotation marks around a string result</td><td>Strings</td></tr>
+      <tr><td>1(c)</td><td>Meaningful identifiers, good practice</td><td>3</td><td>Vague answers: say <i>why</i> single letters cause problems</td><td>Variables</td></tr>
+      <tr><td>2(a)</td><td>Completing a flowchart (counting loop)</td><td>5</td><td>No Yes/No labels on decisions; wrong comparison so the loop ran the wrong number of times</td><td>Algorithms</td></tr>
+      <tr><td>2(b)</td><td>One string variable holding a sequence of values</td><td>3</td><td>Answered "array" when the question said one variable</td><td>Strings</td></tr>
+      <tr><td>3</td><td>Linked list using two 1D arrays</td><td>~8</td><td>Described the diagram instead of the initial (empty) state</td><td>(Ch 10, next module)</td></tr>
+      <tr><td>4</td><td>Function totalling odd and even positions</td><td>6</td><td>No ENDFUNCTION; MOD on the value, not the index; OUTPUT instead of RETURN</td><td>Arrays, Functions</td></tr>
+      <tr><td>5(a)</td><td>Trace table with CASE, MID, DIV</td><td>~6</td><td>Initial array values not written; no quotes on strings</td><td>Simulations</td></tr>
+      <tr><td>5(b)</td><td>Adding OTHERWISE to a CASE</td><td>2</td><td>Treated CASE like IF/ELSE</td><td>IF &amp; CASE</td></tr>
+      <tr><td>6(a)</td><td>Function with 6 parameters, power ^, Boolean return</td><td>~6</td><td>Wrote ² instead of <code>^2</code></td><td>Functions</td></tr>
+      <tr><td>6(b)</td><td>Real-number rounding problem</td><td>2</td><td>Fix: compare with a tolerance, or round both sides</td><td>—</td></tr>
+      <tr><td>7(a)</td><td>Abstraction in a scenario</td><td>~6</td><td>Gave the definition instead of the advantage; brought in information not in the scenario</td><td>Computational thinking</td></tr>
+      <tr><td>7(b)</td><td>Structure chart → module headers</td><td>~4</td><td>Missing BYREF; wrote "MODULE" instead of PROCEDURE/FUNCTION</td><td>Procedures &amp; functions</td></tr>
+      <tr><td>8</td><td>String processing + file handling</td><td>~15</td><td>OUTPUT instead of RETURN; quotes round a file-name variable; counter not set to 0</td><td>Strings, Files</td></tr>
+    </table></div>
+    <div class="callout tip"><b>Key messages from the 2024 examiner report for Paper 2</b><ul>
+      <li>Use only the functions and operators in the <b>insert</b>, not Python methods such as <code>.upper()</code>.</li>
+      <li>Attempt every question. Even the long pseudocode questions have accessible marks (header, loop, initialisation, return).</li>
+      <li>Learn the command words: <i>state</i> = brief, <i>describe</i> = features or steps, <i>explain</i> = point + reason.</li></ul></div>
+    <p>Exam-style questions in the same format are in the <a href="#" data-goto="practice">Exam practice</a> tab.</p>
+  </section>
+
+  <!-- ===================== PRACTICE ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="practice" hidden>
+    <h2>Exam-style practice (Paper 2 format)</h2>
+    <p class="muted">Write your answer, reveal the mark scheme, tick the points you got, then save your mark. Marks go to your teacher's sheet. Use the <a href="https://www.cambridgeinternational.org/Images/697372-2026-syllabus.pdf" target="_blank" rel="noopener">insert functions</a> only.</p>
+    <div class="subtabs" data-tabs="prac"><button data-tab="p1">Set A — short answers</button><button data-tab="p2">Set B — trace &amp; complete</button><button data-tab="p3">Set C — write the algorithm</button></div>
+    <div class="panel" data-panel-group="prac" data-panel="p1" id="pracA"></div>
+    <div class="panel" data-panel-group="prac" data-panel="p2" id="pracB" hidden></div>
+    <div class="panel" data-panel-group="prac" data-panel="p3" id="pracC" hidden></div>
+  </section>
+
+  <!-- ===================== QUIZZES ===================== -->
+  <section class="panel" data-panel-group="main" data-panel="quizzes" hidden>
+    <h2>Quizzes</h2>
+    <div class="subtabs" data-tabs="quiz">
+      <button data-tab="q-k">Kahoot-style</button><button data-tab="q-m">Match the columns</button>
+      <button data-tab="q-f">Flashcards</button><button data-tab="q-b">Fill in the blanks</button><button data-tab="q-s">Answer the questions</button>
+    </div>
+    <div class="panel" data-panel-group="quiz" data-panel="q-k"><div class="subtabs" data-tabs="kq"><button data-tab="k1">Round 1: Basics</button><button data-tab="k2">Round 2: Spot the Python</button></div>
+      <div class="panel" data-panel-group="kq" data-panel="k1" id="kahoot1"></div><div class="panel" data-panel-group="kq" data-panel="k2" id="kahoot2" hidden></div></div>
+    <div class="panel" data-panel-group="quiz" data-panel="q-m" hidden><div class="subtabs" data-tabs="mq"><button data-tab="m1">Python → pseudocode</button><button data-tab="m2">Key terms</button></div>
+      <div class="panel" data-panel-group="mq" data-panel="m1" id="match1"></div><div class="panel" data-panel-group="mq" data-panel="m2" id="match2" hidden></div></div>
+    <div class="panel" data-panel-group="quiz" data-panel="q-f" hidden><div id="flash"></div></div>
+    <div class="panel" data-panel-group="quiz" data-panel="q-b" hidden><div id="blanks"></div></div>
+    <div class="panel" data-panel-group="quiz" data-panel="q-s" hidden><div id="short"></div></div>
+  </section>
+</main>
+<footer>Pseudocode follows the Cambridge 9618 conventions. Textbook references: Watson &amp; Williams, Cambridge International AS &amp; A Level Computer Science (Hodder, 2019).</footer>
+<script src="pseudocode-python-data.js"></script>
+<script src="pseudocode-python-sims.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Lab Answers</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="codelab.css">
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js"></script>
+<script src="pseudo.js"></script>
+<script src="editor.js"></script>
+<script src="questions.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner">
+  <a class="brand" href="../index.html"><span class="logo">CS</span>9618 Study Hub</a>
+  <nav class="topnav">
+    <a href="../index.html">Home</a>
+    <a href="index.html">Code Lab</a>
+    <a href="answers.html" class="active">Teacher answers</a>
+    <button data-theme-toggle title="Switch light/dark">◐</button>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div id="gate" class="card pin-gate">
+    <h2 style="margin-top:0">Teacher answers</h2>
+    <p class="muted">Enter the teacher PIN (set in <code>codelab/questions.js</code>).</p>
+    <div class="btn-row" style="justify-content:center"><input type="password" id="pin" placeholder="PIN" style="width:140px"><button class="btn primary" id="go">Open</button></div>
+    <p class="muted" style="font-size:.8rem">The PIN only stops students opening this page by accident. It is not real security.</p>
+  </div>
+
+  <div id="content" hidden>
+    <h1>Code Lab answer key</h1>
+    <p class="lead">Model answers, mark points and test cases for every practice program. Student submissions arrive in the <b>Scores</b> tab of your Google Sheet (Type = <i>Program submission</i>; the code is in the <b>Details</b> column). To run a submission against the tests, paste it into <b>Check a student's answer</b> under that question.</p>
+    <div class="btn-row"><button class="btn" id="verify">✔ Run every model pseudocode answer against its tests</button><span class="status" id="vstatus"></span></div>
+    <nav class="tabs" id="settabs"></nav>
+    <div id="sets"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  const D = window.CODELAB, { esc, createEditor, runPseudo, PyRunner, runTests, renderTests } = CodeLab;
+  const $ = s => document.querySelector(s);
+  const open = () => { $("#gate").hidden = true; $("#content").hidden = false; try { sessionStorage.setItem("codelab_t", "1"); } catch (e) {} build(); };
+  $("#go").onclick = () => { if ($("#pin").value === String(D.TEACHER_PIN)) open(); else Hub.toast("Wrong PIN"); };
+  $("#pin").onkeydown = e => { if (e.key === "Enter") $("#go").click(); };
+  try { if (sessionStorage.getItem("codelab_t") === "1") open(); } catch (e) {}
+
+  function build() {
+    if ($("#sets").dataset.built) return; $("#sets").dataset.built = 1;
+    const sets = D.sets.slice().sort((a, b) => b.date.localeCompare(a.date));
+    $("#settabs").innerHTML = sets.map(s => `<button data-tab="${s.id}">${esc(s.title)}</button>`).join("");
+    $("#sets").innerHTML = sets.map(s => `<section class="panel" data-panel-group="sets" data-panel="${s.id}" hidden>
+      <p class="muted">Set date: ${esc(s.date)} · ${s.questions.length} questions · ${s.questions.reduce((a, q) => a + q.marks, 0)} marks</p>
+      ${s.questions.map((q, n) => `<details class="q" data-q="${q.id}"><summary><span>Q${n + 1}. ${esc(q.title)}</span><span class="marks">[${q.marks} marks] · ${q.tests.length} tests</span></summary><div class="body">
+        <div class="callout">${q.task}</div>
+        <h4>Mark points</h4><ol>${q.markPoints.map(m => `<li>${esc(m)}</li>`).join("")}</ol>
+        <div class="two-col"><div><div class="label">Model pseudocode</div><pre data-lang="pseudo">${esc(q.modelPseudo)}</pre></div>
+        <div><div class="label">Model Python</div><pre data-lang="python">${esc(q.modelPython)}</pre></div></div>
+        <h4>Test cases</h4><div class="table-wrap"><table><tr><th>#</th><th>Input</th><th>Expected output</th></tr>${q.tests.map((t, i) => `<tr><td>${i + 1}</td><td><pre style="margin:0">${esc(t.input) || "(none)"}</pre></td><td><pre style="margin:0">${esc(t.output) || "(empty line)"}</pre></td></tr>`).join("")}</table></div>
+        <details class="q"><summary><span>🔍 Check a student's answer</span></summary><div class="body">
+          <div class="btn-row"><div class="lang-toggle"><button data-l="pseudo" class="on">Pseudocode</button><button data-l="python">Python</button></div><span class="muted">Paste the code from the Details column (the first [ … ] line is ignored).</span></div>
+          <div data-ed></div><div class="btn-row"><button class="btn primary" data-check>Run the tests</button><span class="status" data-st></span></div><div data-res></div>
+        </div></details>
+      </div></details>`).join("")}</section>`).join("");
+    Hub.initHighlight($("#sets"));
+    // tabs
+    const btns = [...$("#settabs").querySelectorAll("button")];
+    const show = id => { btns.forEach(b => b.setAttribute("aria-selected", b.dataset.tab === id)); document.querySelectorAll('[data-panel-group="sets"]').forEach(p => p.hidden = p.dataset.panel !== id); };
+    btns.forEach(b => b.onclick = () => show(b.dataset.tab)); show(btns[0].dataset.tab);
+    // student checkers
+    document.querySelectorAll("details.q[data-q]").forEach(d => {
+      const q = D.sets.flatMap(s => s.questions).find(x => x.id === d.dataset.q);
+      let lang = "pseudo", ed = null;
+      const mount = () => { ed = createEditor(d.querySelector("[data-ed]"), { lang, value: "", minLines: 10 }); };
+      d.querySelector("details").addEventListener("toggle", () => { if (!ed) mount(); }, { once: true });
+      d.querySelectorAll("[data-l]").forEach(b => b.onclick = () => { lang = b.dataset.l; d.querySelectorAll("[data-l]").forEach(x => x.classList.toggle("on", x === b)); mount(); });
+      d.querySelector("[data-check]").onclick = async () => {
+        const code = ed.get().replace(/^\[(PSEUDOCODE|PYTHON)[^\]]*\]\s*\n/, "");
+        const st = d.querySelector("[data-st]"); st.textContent = "Testing…";
+        const res = await runTests(lang, code, q.tests, q.files || {}, t => st.textContent = t);
+        const p = renderTests(d.querySelector("[data-res]"), res); st.textContent = `${p}/${q.tests.length} passed`;
+      };
+    });
+  }
+
+  $("#verify").onclick = async () => {
+    const qs = D.sets.flatMap(s => s.questions); let ok = 0; const bad = [];
+    for (const q of qs) { const r = await runTests("pseudo", q.modelPseudo, q.tests, q.files || {}); if (r.every(x => x.pass)) ok++; else bad.push(q.title); }
+    $("#vstatus").textContent = `${ok}/${qs.length} model answers pass all their tests` + (bad.length ? " · check: " + bad.join(", ") : " ✅");
+  };
+})();
+</script>
+</body>
+</html>

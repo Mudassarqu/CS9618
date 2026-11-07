@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Scores</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner">
+  <a class="brand" href="index.html"><span class="logo">CS</span>9618 Study Hub</a>
+  <nav class="topnav">
+    <a href="index.html">Home</a>
+    <a href="topics/pseudocode-python.html">Pseudocode &amp; Python</a>
+    <a href="scores.html" class="active">My scores</a>
+    <button data-theme-toggle title="Switch light/dark">◐</button>
+    <label class="student-chip"><span class="hide-sm">Name</span><input class="student-name" type="text" placeholder="Your full name"></label>
+  </nav>
+</div></header>
+<main class="wrap">
+  <h1>My scores</h1>
+  <p class="lead">Every quiz and practice question you mark is listed here (on this device). When your teacher has connected the Google Sheet, each score is also sent there with your name.</p>
+  <div class="card"><div data-score-table></div>
+  <div class="btn-row"><button class="btn" id="clear">Clear scores on this device</button></div></div>
+</main>
+<script>
+document.getElementById("clear").onclick=()=>{ if(confirm("Delete all scores stored on this device? (Scores already sent to the teacher sheet are kept.)")){ localStorage.removeItem("cs9618_scores"); location.reload(); } };
+</script>
+</body>
+</html>
